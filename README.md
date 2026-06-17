@@ -4,7 +4,7 @@
 > * Rojas, Facundo Nicolás
 > * Rojas, Facundo Nicolás
 > * Soria Enzo Agustín
-> * **Profesor:** Blasco
+> * **Profesor:** Blasco Marco
 
 ---
 
