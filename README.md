@@ -77,7 +77,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
   * **PICkit 3:** usado únicamente para la grabación inicial del bootloader serie en el PIC.
   * **AN1310 (Bootloader serie sobre UART):** usado para las cargas sucesivas del firmware sin necesidad de desconectar el circuito ni usar el PICkit nuevamente.
 * **Configuración de Bits (Fuses Críticos):**
-  * *Oscilador:* `_FOSC_XT` — cristal externo de 4MHz con dos capacitores de 22pF a GND (en el esquemático de Proteus figuran como "2.2uF" por un error de tipeo del simulador; el valor físico real es 22pF, el típico para este tipo de cristal).
+  * *Oscilador:* `_FOSC_XT` — cristal externo de 4MHz con dos capacitores de 22pF a GND 
   * *Watchdog Timer (WDT):* `_WDTE_OFF` (deshabilitado).
   * *Master Clear (MCLRE):* `_MCLRE_ON` (pin de reset externo habilitado).
   * *Power-up Timer:* `_PWRTE_ON` (habilitado).
