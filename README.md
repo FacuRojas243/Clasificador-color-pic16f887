@@ -46,17 +46,17 @@ El sistema está dirigido a un entorno educativo de control y automatización, d
 
 ### Hardware & Interconexión
 
-* **Diagrama de Bloques:** *(insertar imagen en `docs/diagrama_bloques.png`)*
-  `![Diagrama de Bloques](docs/diagrama_bloques.png)`
-* **Esquemático del Circuito:** *(captura del esquemático completo en Proteus)*
-  `![Esquemático Completo](hardware/esquematico.png)`
+* **Diagrama de Bloques:**
+  ![Diagrama de Bloques](docs/diagrama_bloques.png)
+* **Esquemático del Circuito:**
+  ![Esquemático Completo](hardware/esquematico.png)
 * **Descripción del Circuito y Consideraciones de Diseño:**
   El sensor TCS3200/TCS230 se alimenta a 5V y entrega en su pin `OUT` una señal cuadrada cuya frecuencia es proporcional a la intensidad de luz del color seleccionado por los pines `S2`/`S3` (filtro). Esa señal se conecta al pin `RC0` (T1CKI) del PIC, que se configura como entrada de reloj externo del Timer1 para contar pulsos durante una ventana fija de 20ms. El LCD se maneja en modo paralelo de 8 bits por el `PORTD` (líneas de datos) y dos líneas de control (`RS` y `E`) por `PORTE`. El servomotor SG90 se controla por software generando pulsos PWM manuales (período ≈20ms, ancho de pulso entre 0.5ms y 2.5ms) sobre `RC2`. El potenciómetro de 10kΩ se conecta como divisor de tensión entre 0V y 5V con el cursor a `RA0` (canal `AN0` del ADC). La comunicación serie UART (TX) se conecta a un adaptador USB-Serie para visualizar los datos en la PC, y también se usa para cargar el firmware mediante el bootloader AN1310.
 
 ### Arquitectura de Software (Firmware)
 
-* **Diagrama de Flujo o Máquina de Estados:** *(insertar imagen en `docs/diagrama_software.png`)*
-  `![Diagrama de Flujo](docs/diagrama_software.png)`
+* **Diagrama de Flujo o Máquina de Estados:**
+  ![Diagrama de Flujo](docs/diagrama_software.png)
 
 El firmware funciona como un lazo principal que permanece leyendo el ADC y mostrando "SISTEMA LISTO" en el LCD hasta que el usuario presiona el pulsador (RB0). Esa pulsación dispara una interrupción externa que solo activa una bandera de software (`FLAG_ESCANEAR`); todo el procesamiento pesado (medición del sensor, comparación y actuación) ocurre en el lazo principal, no dentro de la rutina de interrupción, para mantenerla corta y evitar antirebotes complejos dentro del ISR.
 
@@ -69,8 +69,8 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 * **Tensión de operación del sistema:** 5V
 * **Método de alimentación:** Fuente externa regulada a 5V (alimenta al PIC, LCD, sensor TCS3200/TCS230 y servomotor SG90).
 * **Consumo estimado o medido:**
-  * En modo activo (servo en movimiento + LCD + sensor activo): aproximadamente `410 mA` *(completar con medición real)*
-  * En modo de espera (lazo principal sin escanear): `38 mA` *(completar con medición real)*
+  * En modo activo (servo en movimiento + LCD + sensor activo): aproximadamente `410 mA`
+  * En modo de espera (lazo principal sin escanear): `38 mA`
 
 ### Electrónica Digital II (PIC16F887)
 
@@ -79,7 +79,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
   * **PICkit 3:** usado únicamente para la grabación inicial del bootloader serie en el PIC.
   * **AN1310 (Bootloader serie sobre UART):** usado para las cargas sucesivas del firmware sin necesidad de desconectar el circuito ni usar el PICkit nuevamente.
 * **Configuración de Bits (Fuses Críticos):**
-  * *Oscilador:* `_FOSC_XT` — cristal externo de 4MHz con dos capacitores de 22pF a GND 
+  * *Oscilador:* `_FOSC_XT` — cristal externo de 4MHz con dos capacitores de 22pF a GND
   * *Watchdog Timer (WDT):* `_WDTE_OFF` (deshabilitado).
   * *Master Clear (MCLRE):* `_MCLRE_ON` (pin de reset externo habilitado).
   * *Power-up Timer:* `_PWRTE_ON` (habilitado).
@@ -109,8 +109,19 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
   * Inyección de valores simulados (mock) en las variables `CONT_ROJO`, `CONT_VERDE` y `CONT_AZUL` desde el depurador de MPLAB X, para validar la lógica de comparación de colores de forma independiente del sensor físico, ante la imposibilidad de simular la señal real del TCS3200/TCS230 en el simulador.
   * Verificación con hardware real del reporte por UART (`ADC: ddd - R:ddd V:ddd A:ddd`) usando un terminal serie a 9600 baudios, contrastando los valores reportados contra el color físico expuesto al sensor.
 * **Evidencia Fotográfica y Gráficos:**
-  * *Capturas de terminal serie:* *(insertar captura del reporte UART en `docs/`)*
-  * *Foto del Prototipo Real:* *(insertar foto del circuito armado en `docs/`)*
+  * *Captura de terminal serie (AN1310) — efecto del umbral del ADC sobre la clasificación:*
+    ![Captura UART - Umbral ADC](docs/captura_uart_umbral_adc.png)
+
+    En esta captura se observa cómo, al girar el potenciómetro hacia su valor máximo (`ADC: 255`), el sistema reporta "SIN OBJETO" sin importar el color real expuesto al sensor, porque ningún valor de `CONT_VERDE` logra superar ese umbral. Al bajar el potenciómetro (`ADC: 019-022`), el sistema vuelve a clasificar los colores con normalidad. Esto demuestra el uso del ADC como parámetro de sensibilidad ajustable, cumpliendo con el requisito de incorporar el conversor analógico-digital al sistema.
+
+  * *Demostración en video — detección de cada color:*
+
+    | Rojo | Verde | Azul |
+    |---|---|---|
+    | ![Demo Rojo](docs/demo_rojo.gif) | ![Demo Verde](docs/demo_verde.gif) | ![Demo Azul](docs/demo_azul.gif) |
+
+  * *Foto del Prototipo Real:* *(pendiente de incorporar)*
+    `![Prototipo armado](docs/prototipo.jpg)`
 
 ---
 
