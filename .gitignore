@@ -1,0 +1,40 @@
+# ===================================================================
+# .gitignore para proyectos MPLAB X IDE (PIC16F887 - MPASM/pic-as)
+# ===================================================================
+
+# Carpetas de compilación generadas por MPLAB X
+build/
+dist/
+**/Debug/
+**/Release/
+**/.generated_files/
+
+# Archivos intermedios del ensamblador (MPASM / pic-as)
+*.o
+*.p1
+*.d
+*.obj
+*.cof
+*.lst
+*.sym
+*.map
+*.hxl
+*.err
+
+# Archivos de salida de compilación (se regeneran, no se versionan)
+*.hex
+*.elf
+
+# Archivos de configuración local de MPLAB X (específicos de cada PC)
+nbproject/private/
+*.orig
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backups de editores de texto
+*~
+*.bak
+*.swp
