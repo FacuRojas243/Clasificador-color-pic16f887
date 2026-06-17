@@ -1,10 +1,11 @@
 # Clasificador de Objetos por Color con Sensor TCS3200/TCS230
 > **Asignatura:** Electrónica Digital II - Universidad Nacional de Córdoba
 > **Integrantes:**
-> * Rojas, Facundo Nicolás
-> * Rojas, Facundo Nicolás
-> * Soria Enzo Agustín
-> * **Profesor:** Blasco Marco
+>  * Rojas, Facundo Nicolás
+>  * Osses, Santiago Ramón
+>  * Soria Enzo Agustín
+>   
+> * **Profesor:** Blasco, Marcos Javier
 
 ---
 
