@@ -1,20 +1,20 @@
 # Clasificador de Objetos por Color con Sensor TCS3200/TCS230
 > **Asignatura:** Electrónica Digital II - Universidad Nacional de Córdoba
 > **Integrantes:**
-> * [Nombre Apellido]
-> * [Nombre Apellido]
-> * [Nombre Apellido]
+> * Rojas, Facundo Nicolás
+> * Rojas, Facundo Nicolás
+> * Soria Enzo Agustín
 > **Profesor:** [Nombre del Profesor]
 
 ---
 
-## 🚀 1. Descripción General del Proyecto
+## 1. Descripción General del Proyecto
 
 El sistema es un clasificador automático de objetos por color, pensado como una pequeña estación de control de calidad o de selección de piezas. Un sensor de color TCS3200/TCS230 mide la luz reflejada por un objeto colocado frente a él, el microcontrolador PIC16F887 procesa esa lectura para determinar si predomina el rojo, el verde o el azul, y según el resultado posiciona un servomotor en uno de tres ángulos (0°, 90° o 180°), simulando una compuerta o brazo que dirige el objeto hacia distintas salidas. El resultado de cada clasificación se muestra en un display LCD y se envía por UART a una PC para su registro o monitoreo.
 
 El sistema está dirigido a un entorno educativo de control y automatización, donde se busca demostrar la integración de un sensor digital de frecuencia, un conversor ADC con su periférico de entrada (potenciómetro), un actuador (servomotor) y dos salidas de información simultáneas (LCD y UART) sobre un mismo microcontrolador de 8 bits.
 
-### 🎯 Alcances del Proyecto
+### Alcances del Proyecto
 
 * **El sistema SÍ es capaz de:**
   * Medir la frecuencia de salida del sensor TCS3200/TCS230 para los canales rojo, verde y azul mediante Timer1 en modo contador externo.
@@ -31,7 +31,7 @@ El sistema está dirigido a un entorno educativo de control y automatización, d
   * Calibración automática del sensor ante condiciones de luz ambiente variables (la calibración es manual, ajustando el potenciómetro de umbral).
   * Interfaz gráfica de usuario en PC; la recepción de datos se realiza con un terminal serie genérico (PuTTY, RealTerm, etc.).
 
-### ⏩ Posibles Etapas Siguientes (Líneas Futuras)
+### Posibles Etapas Siguientes (Líneas Futuras)
 
 * Migrar el circuito de protoboard a un circuito impreso (PCB) con blindaje para el sensor de color, reduciendo la interferencia de luz ambiente.
 * Implementar una calibración automática de los valores RGB de referencia (blanco/negro) almacenando los extremos en EEPROM interna del PIC.
@@ -40,9 +40,9 @@ El sistema está dirigido a un entorno educativo de control y automatización, d
 
 ---
 
-## 📐 2. Arquitectura del Sistema: Hardware y Software
+## 2. Arquitectura del Sistema: Hardware y Software
 
-### 🔌 Hardware & Interconexión
+### Hardware & Interconexión
 
 * **Diagrama de Bloques:** *(insertar imagen en `docs/diagrama_bloques.png`)*
   `![Diagrama de Bloques](docs/diagrama_bloques.png)`
@@ -51,7 +51,7 @@ El sistema está dirigido a un entorno educativo de control y automatización, d
 * **Descripción del Circuito y Consideraciones de Diseño:**
   El sensor TCS3200/TCS230 se alimenta a 5V y entrega en su pin `OUT` una señal cuadrada cuya frecuencia es proporcional a la intensidad de luz del color seleccionado por los pines `S2`/`S3` (filtro). Esa señal se conecta al pin `RC0` (T1CKI) del PIC, que se configura como entrada de reloj externo del Timer1 para contar pulsos durante una ventana fija de 20ms. El LCD se maneja en modo paralelo de 8 bits por el `PORTD` (líneas de datos) y dos líneas de control (`RS` y `E`) por `PORTE`. El servomotor SG90 se controla por software generando pulsos PWM manuales (período ≈20ms, ancho de pulso entre 0.5ms y 2.5ms) sobre `RC2`. El potenciómetro de 10kΩ se conecta como divisor de tensión entre 0V y 5V con el cursor a `RA0` (canal `AN0` del ADC). La comunicación serie UART (TX) se conecta a un adaptador USB-Serie para visualizar los datos en la PC, y también se usa para cargar el firmware mediante el bootloader AN1310.
 
-### 💻 Arquitectura de Software (Firmware)
+### Arquitectura de Software (Firmware)
 
 * **Diagrama de Flujo o Máquina de Estados:** *(insertar imagen en `docs/diagrama_software.png`)*
   `![Diagrama de Flujo](docs/diagrama_software.png)`
@@ -60,9 +60,9 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 
 ---
 
-## ⚡ 3. Especificaciones Eléctricas, Alimentación y Entorno
+## 3. Especificaciones Eléctricas, Alimentación y Entorno
 
-### 🔌 Parámetros de Alimentación y Consumo
+### Parámetros de Alimentación y Consumo
 
 * **Tensión de operación del sistema:** 5V
 * **Método de alimentación:** Fuente externa regulada a 5V (alimenta al PIC, LCD, sensor TCS3200/TCS230 y servomotor SG90).
@@ -70,7 +70,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
   * En modo activo (servo en movimiento + LCD + sensor activo): `XX mA` *(completar con medición real)*
   * En modo de espera (lazo principal sin escanear): `XX mA` *(completar con medición real)*
 
-### 📌 Electrónica Digital II (PIC16F887)
+### Electrónica Digital II (PIC16F887)
 
 * **Herramientas de Software:** MPLAB X IDE, ensamblador MPASM (proyecto en lenguaje assembler, no C/XC8).
 * **Hardware de Programación/Depuración:**
@@ -91,7 +91,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 
 ---
 
-## 🔄 4. Proceso de Integración y Desarrollo
+## 4. Proceso de Integración y Desarrollo
 
 * **Etapa 1 (Validación inicial):** Configuración del oscilador externo de 4MHz, prueba de inicialización y escritura en el LCD 16x2 en modo 8 bits.
 * **Etapa 2 (Adquisición/Comunicación):** Implementación de la lectura del ADC sobre el potenciómetro y envío de los valores crudos por UART para verificar el rango y la resolución obtenida.
@@ -100,7 +100,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 
 ---
 
-## 📊 5. Ensayos, Pruebas y Resultados
+## 5. Ensayos, Pruebas y Resultados
 
 * **Pruebas Funcionales Realizadas:**
   * Verificación de la secuencia de inicialización del LCD y corrección de la rutina de encendido (se requería repetir el comando de configuración de función `0x38` para asegurar la sincronización del controlador HD44780).
@@ -112,7 +112,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 
 ---
 
-## 📂 6. Estructura del Repositorio
+## 6. Estructura del Repositorio
 
 ```text
 ├── firmware/
@@ -132,7 +132,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 
 ---
 
-## 🛠️ 7. Cómo compilar y cargar el firmware
+## 7. Cómo compilar y cargar el firmware
 
 1. Abrir MPLAB X IDE y crear un proyecto nuevo para el dispositivo **PIC16F887**, seleccionando el toolchain **mpasm** (ensamblador, no XC8).
 2. Agregar como archivo fuente principal `firmware/src/main.asm`. Los archivos `.inc` no necesitan agregarse manualmente al proyecto: son incluidos automáticamente por las directivas `#include` dentro de `main.asm`, siempre y cuando estén en la misma carpeta.
