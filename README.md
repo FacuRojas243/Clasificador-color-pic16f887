@@ -3,9 +3,9 @@
 > **Integrantes:**
 >  * Rojas, Facundo Nicolás
 >  * Osses, Santiago Ramón
->  * Soria Enzo Agustín
+>  * Soria, Enzo Agustín
 >   
-> * **Profesor:** Blasco, Marcos Javier
+> **Profesor:** Blasco, Marcos Javier
 
 ---
 
