@@ -67,7 +67,7 @@ El firmware funciona como un lazo principal que permanece leyendo el ADC y mostr
 * **Tensión de operación del sistema:** 5V
 * **Método de alimentación:** Fuente externa regulada a 5V (alimenta al PIC, LCD, sensor TCS3200/TCS230 y servomotor SG90).
 * **Consumo estimado o medido:**
-  * En modo activo (servo en movimiento + LCD + sensor activo): aproximadamente`410 mA` *(completar con medición real)*
+  * En modo activo (servo en movimiento + LCD + sensor activo): aproximadamente `410 mA` *(completar con medición real)*
   * En modo de espera (lazo principal sin escanear): `38 mA` *(completar con medición real)*
 
 ### Electrónica Digital II (PIC16F887)
