@@ -1,7 +1,5 @@
 # Carpeta docs/
 
-Colocar acá:
-
 - `diagrama_bloques.png` — diagrama de bloques del hardware (sensor → PIC → LCD/UART/Servo).
 - `diagrama_software.png` — diagrama de flujo o máquina de estados del firmware (lazo principal, ISR, medición, comparación, acción).
 - Capturas del terminal serie (PuTTY/RealTerm) mostrando el reporte UART en funcionamiento.
